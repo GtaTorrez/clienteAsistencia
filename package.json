@@ -1,0 +1,76 @@
+{
+  "name": "amerinst-sistema-cliente",
+  "private": true,
+  "version": "0.0.0",
+  "description": "a Sails application",
+  "keywords": [],
+  "dependencies": {
+    "async": "^2.6.0",
+    "cors": "^2.8.4",
+    "ejs": "2.3.4",
+    "express": "^4.16.3",
+    "express-fileupload": "^0.4.0",
+    "grunt": "1.0.1",
+    "grunt-contrib-clean": "1.0.0",
+    "grunt-contrib-coffee": "1.0.0",
+    "grunt-contrib-concat": "1.0.1",
+    "grunt-contrib-copy": "1.0.0",
+    "grunt-contrib-cssmin": "1.0.1",
+    "grunt-contrib-jst": "1.0.0",
+    "grunt-contrib-less": "1.3.0",
+    "grunt-contrib-uglify": "1.0.1",
+    "grunt-contrib-watch": "1.0.0",
+    "grunt-sails-linker": "~0.10.1",
+    "grunt-sync": "0.5.2",
+    "include-all": "^1.0.0",
+    "moment": "^2.22.1",
+    "rc": "1.0.1",
+    "restler": "^3.4.0",
+    "sails": "~0.12.14",
+    "sails-disk": "~0.10.9",
+    "serialport": "^6.2.0",
+    "serialport-js": "^1.1.0",
+    "socket.io": "^2.0.4"
+  },
+  "scripts": {
+    "debug": "node debug app.js",
+    "package:win": "electron-packager . --asar --prune=true --overwrite --platform=win32 --arch=ia32 --out=out",
+    "package:linux": "electron-packager . --asar --prune=true --overwrite --platform=linux --arch=ia32 --out=out",
+    "package:mac": "electron-packager . --asar --prune=true --overwrite --platform=darwin --arch=ia32 --out=out",
+    "start": "node app.js",
+    "dist": "build"
+  },
+  "main": "main.js",
+  "build": {
+    "appId": "com.DesktopApp",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "category": "Development",
+      "target": "AppImage"
+    },
+    "mac": {
+      "category": "Development"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/anonymous node/sails user/amerinst-sistema-cliente.git"
+  },
+  "author": "anonymous node/sails user",
+  "license": "",
+  "devDependencies": {
+    "electron": "1.8.4",
+    "electron-builder": "20.10.0",
+    "electron-packager": "12.0.1"
+  }
+}
