@@ -36,25 +36,21 @@ var server = http.createServer(app);
 var io = socketIo.listen(server);
 
 app.use(cors());
-app.use(express.static('../assets'));
+app.use(express.static('./assets'));
 app.use(fileUpload());
 app.post('/upload',function(req,res){
   console.log(req);
   if(!req.files)
     return res.status.send('No se los subieron archivos');
   let fondo = req.files.fondo;
-  
+  console.log(fondo);
   fondo.mv('assets/cliente/fondo/fondo.jpg', function(err) {
     if (err)
       return res.status(500).send(err);
- 
-    res.send('File uploaded!');
+    res.send('{"fondo":"http://127.0.0.1:1338/cliente/fondo/fondo.jpg"}')
+    res.end();
   });
   
-
-
-  res.send('{"fondo":"http://127.0.0.1:1338/cliente/fondo/fondo.jpg"}')
-  res.end();
 })
 app.get('/fondo',function(req,res){
   res.send('{"fondo":"http://127.0.0.1:1338/cliente/fondo/fondo.jpg"}');
@@ -66,7 +62,6 @@ app.get('/puertos',function(req,res){
     //portss="{ports:"+ports+"}";
     portss=ports;
     res.send(portss);
-    console.log(portss)
   });  
   // res.send(portss);
 

@@ -14,6 +14,7 @@ var rest = require('restler');
 var moment = require('moment')
 var baseidentificacion = ''
 var actualIdentificacion = '0'
+var fs = require('fs');
 
 var async = require('async');
 var auxAlumno = {
@@ -35,20 +36,35 @@ var server = http.createServer(app);
 var io = socketIo.listen(server);
 
 app.use(cors());
-app.use(express.static('../assets'));
+app.use(express.static('./assets'));
 app.use(fileUpload());
 app.post('/upload',function(req,res){
+  console.log(req);
   if(!req.files)
     return res.status.send('No se los subieron archivos');
-  let fondo = req.files.fondo
-  fondo.mv('../assets/cliente/fondo/fondo.jpg');
-  if(err)
-    return res.status(500).send(err);
-  res.send('Archivo cargado')
-
+  let fondo = req.files.fondo;
+  console.log(fondo);
+  fondo.mv('assets/cliente/fondo/fondo.jpg', function(err) {
+    if (err)
+      return res.status(500).send(err);
+    res.send('{"fondo":"http://127.0.0.1:1338/cliente/fondo/fondo.jpg"}')
+    res.end();
+  });
+  
 })
 app.get('/fondo',function(req,res){
-  res.send('127.0.0.1:1338/cliente/fondo/fondo.jpg');
+  res.send('{"fondo":"http://127.0.0.1:1338/cliente/fondo/fondo.jpg"}');
+})
+
+app.get('/puertos',function(req,res){
+  let portss;
+  SerialPort.list(function (err, ports) {
+    //portss="{ports:"+ports+"}";
+    portss=ports;
+    res.send(portss);
+  });  
+  // res.send(portss);
+
 })
 
 server.listen(1338);
