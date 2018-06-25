@@ -36,7 +36,7 @@ var server = http.createServer(app);
 var io = socketIo.listen(server);
 
 app.use(cors());
-app.use(express.static('./assets'));
+app.use(express.static('../assets'));
 app.use(fileUpload());
 app.post('/upload',function(req,res){
   console.log(req);
@@ -44,7 +44,7 @@ app.post('/upload',function(req,res){
     return res.status.send('No se los subieron archivos');
   let fondo = req.files.fondo;
   console.log(fondo);
-  fondo.mv('assets/cliente/fondo/fondo.jpg', function(err) {
+  fondo.mv('../assets/cliente/fondo/fondo.jpg', function(err) {
     if (err)
       return res.status(500).send(err);
     res.send('{"fondo":"http://127.0.0.1:1338/cliente/fondo/fondo.jpg"}')
